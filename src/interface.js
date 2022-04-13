@@ -22,14 +22,17 @@ const listPeeps = () => {
     return response.json()
   })
   .then((data) => {
-    document.querySelector('#test-class').innerText = data[0].body
+    const peepsDiv = document.getElementById("peeps-list")
     for (let i = 0; i <= data.length; i++) {
       const newDiv = document.createElement("p")
+      const peepName = document.createTextNode(`${data[i].user.handle} peeped: `)
       const newContent = document.createTextNode(data[i].body)
+      const peepTime = document.createTextNode(` at: ${data[i].created_at}`)
+      newDiv.appendChild(peepName)
       newDiv.appendChild(newContent)
-      const currentDiv = document.getElementById("test-class")
+      newDiv.appendChild(peepTime)
+      const currentDiv = document.getElementById("peeps-list")
       document.body.insertBefore(newDiv, currentDiv)
     }
-    // console.log(data)
   });
 }
