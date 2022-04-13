@@ -1,12 +1,14 @@
 const { response } = require('express');
 const express = require('express')
+const path = require('path')
 const serveIndex = require('serve-index')
-const apiConnection = require('./src/apiConnection.js')
 const app = express()
 // const portFile = require('./port.js')
 const PORT = 3000
 
 app.use(express.json())
+
+app.use(express.static(__dirname + '/src/'))
 
 app.use((req, res, next) => {
   console.log('Time: ', (new Date()).toISOString())
@@ -19,7 +21,8 @@ app.use('/request-type', (req, res, next) => {
 })
 
 app.get('/', (req, res) => {
-  res.send('Successful response')
+  // res.send('Successful response')
+  res.sendFile(path.join(__dirname, '/views/index.html'))
 })
 
 // app.get('/accounts', (req, res) => {
