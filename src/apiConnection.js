@@ -1,19 +1,11 @@
 const fetch = require('node-fetch')
 
 class ApiConnection {
-  constructor() {
-
-  }
-
-  static getUser(id) {
-    const url = `https://chitter-backend-api-v2.herokuapp.com/users/1`
-    var user
-    fetch(url)
-    .then(response => {
-      return response.json()
-    })
-    .then((data) => {
-      document.querySelector("#test-class").innerText = data
-    })
+  static async getPeepAsync(id = '') {
+    const response = await fetch(`https://chitter-backend-api-v2.herokuapp.com/peeps/${id}`)
+    return response.json()
   }
 }
+
+module.exports.connection = new ApiConnection()
+module.exports.getPeepAsync = ApiConnection.getPeepAsync

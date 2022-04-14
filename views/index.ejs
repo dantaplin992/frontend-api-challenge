@@ -1,0 +1,21 @@
+<head>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="body">
+  <div class="header">
+    <h1>Chitter 2</h1>
+  </div>
+  <div id="peeps-list" class="feed">
+    <% for (var i = 0; i < allPeeps.length; i++) { %>
+      <div class="peep">
+        <form action="/peep" method="get">
+          <div><h2><%= allPeeps[i].user.handle %> peeped:</h2></div>
+          <div class="peep-body"><%= allPeeps[i].body %></div>
+          <div class="time">at: <%= allPeeps[i].created_at %></div>
+          <input type="hidden" name="peepId" value="<%= allPeeps[i].id %>">
+          <input type="submit" value="view peep">
+        </form>
+      </div>
+    <% } %>
+  </div>
+</body>

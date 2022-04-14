@@ -23,16 +23,14 @@ const listPeeps = () => {
   })
   .then((data) => {
     const peepsDiv = document.getElementById("peeps-list")
-    for (let i = 0; i <= data.length; i++) {
+    for (let i = 0; i < data.length; i++) {
       const newDiv = document.createElement("p")
-      const peepName = document.createTextNode(`${data[i].user.handle} peeped: `)
-      const newContent = document.createTextNode(data[i].body)
-      const peepTime = document.createTextNode(` at: ${data[i].created_at}`)
-      newDiv.appendChild(peepName)
-      newDiv.appendChild(newContent)
-      newDiv.appendChild(peepTime)
+      newDiv.insertAdjacentText('beforeend', `${data[i].user.handle} peeped: `)
+      newDiv.insertAdjacentText('beforeend', data[i].body)
+      newDiv.insertAdjacentText('beforeend', ` at: ${data[i].created_at}`)
       const currentDiv = document.getElementById("peeps-list")
-      document.body.insertBefore(newDiv, currentDiv)
+      //document.body.insertBefore(newDiv, currentDiv)
+      currentDiv.insertAdjacentElement('beforeend', newDiv)
     }
   });
 }

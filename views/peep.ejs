@@ -1,0 +1,20 @@
+<head>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="body">
+  <div class="header">
+    <h1>Chitter 2</h1>
+  </div>
+  <div class="feed">
+    <div class="peep">
+      <div><h2><%= peep.user.handle %> peeped:</h2></div>
+      <div class="peep-body"><%= peep.body %></div>
+      <div class="time">at: <%= peep.created_at %></div>
+      <div>
+        <form action="/" action="get">
+          <input type="submit" value="back">
+        </form>
+      </div>
+    </div>
+  </div>
+</body>

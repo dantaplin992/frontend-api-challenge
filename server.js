@@ -1,44 +1,55 @@
 const { response } = require('express');
-const express = require('express')
+const express = require('express');
 const path = require('path')
 const serveIndex = require('serve-index')
+const apiConnection = require('./src/apiConnection.js')
+const bodyParser = require('body-parser');
+
 const app = express()
-// const portFile = require('./port.js')
 const PORT = 3000
 
+app.set('view engine', 'ejs');
 app.use(express.json())
 
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({ extended: true })); 
+
 app.use(express.static(__dirname + '/src/'))
+app.use(express.static(__dirname + '/public/'))
 
 app.use((req, res, next) => {
   console.log('Time: ', (new Date()).toISOString())
   next()
 })
 
-app.use('/request-type', (req, res, next) => {
-  console.log('Request type: ', req.method)
+// app.use('/request-type', (req, res, next) => {
+//   console.log('Request type: ', req.method)
+//   next()
+// })
+
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`)
   next()
 })
 
 app.get('/', (req, res) => {
-  // res.send('Successful response')
-  res.sendFile(path.join(__dirname, '/views/index.html'))
+  apiConnection.getPeepAsync()
+  .then((result) => {
+    res.render('index', {allPeeps: result})
+  })
 })
 
-// app.get('/accounts', (req, res) => {
-//   res.json(accounts)
-// })
+app.get('/new-user', (req, res) => {
 
-// app.get('/accounts/:id', (req, res) => {
-//   const accountId = Number(req.params.id)
-//   const getAccount = accounts.find((account) => account.id === accountId)
+})
 
-//   if (!getAccount) {
-//     res.status(500).send('Account not found')
-//   } else {
-//     res.json(getAccount)
-//   }
-// })
+app.get('/peep', (req, res) => {
+  console.log(req.query.peepId)
+  apiConnection.getPeepAsync(req.query.peepId)
+  .then((result) => {
+    res.render('peep', { peep: result })
+  })
+})
 
 // app.post('/accounts', (req, res) => {
 //   const incomingAccount = req.body
