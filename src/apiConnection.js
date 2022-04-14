@@ -7,5 +7,4 @@ class ApiConnection {
   }
 }
 
-module.exports.connection = new ApiConnection()
 module.exports.getPeepAsync = ApiConnection.getPeepAsync

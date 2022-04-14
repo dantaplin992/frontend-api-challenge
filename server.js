@@ -1,9 +1,10 @@
-const { response } = require('express');
-const express = require('express');
+const { response } = require('express')
+const express = require('express')
 const path = require('path')
 const serveIndex = require('serve-index')
 const apiConnection = require('./src/apiConnection.js')
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser')
+const session = require('express-session')
 
 const app = express()
 const PORT = 3000
@@ -21,11 +22,6 @@ app.use((req, res, next) => {
   console.log('Time: ', (new Date()).toISOString())
   next()
 })
-
-// app.use('/request-type', (req, res, next) => {
-//   console.log('Request type: ', req.method)
-//   next()
-// })
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.path}`)

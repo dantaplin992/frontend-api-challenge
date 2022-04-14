@@ -5,12 +5,19 @@
   <div class="header">
     <h1>Chitter 2</h1>
   </div>
+  <div id="newPeepForm">
+    <form>
+      <input type="text" name="newPeepBody">
+      <input type="submit" value="add peep">
+    </form>
+  </div>
   <div id="peeps-list" class="feed">
     <% for (var i = 0; i < allPeeps.length; i++) { %>
       <div class="peep">
         <form action="/peep" method="get">
           <div><h2><%= allPeeps[i].user.handle %> peeped:</h2></div>
           <div class="peep-body"><%= allPeeps[i].body %></div>
+          <div class="likes">👍 <%= allPeeps[i].likes.length %></div>
           <div class="time">at: <%= allPeeps[i].created_at %></div>
           <input type="hidden" name="peepId" value="<%= allPeeps[i].id %>">
           <input type="submit" value="view peep">
